@@ -1,0 +1,5 @@
+<!-- https://github.com/plataformatec/devise/wiki/How-To:-Set-up-devise-as-a-single-user-system  -->
+<!-- this allows /users/sig_in to work with :skip => :registrations  in  devise_for route -->
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+  <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+<% end -%>

@@ -1,0 +1,35 @@
+/* 
+If you need to configure a variable or two? Simply define the value of the variable 
+you want to change before importing Bootstrap. Sass will respect your existing 
+definition rather than overwriting it with the Bootstrap defaults
+*/
+
+/*An example of a variable being customised. Note the $ sign denotes a avariable */
+$btnPrimaryBackground: #f00;
+
+/* orange color*/
+$navbarBackground: #FFA500;
+
+/* light yellow */
+$navbarBackgroundHighlight: #FFFF66;
+
+/* The line includes the entire bootstrap css framework*/
+@import  "bootstrap";
+
+
+body {
+  padding: 70px 10px 10px 10px;
+  margin-top: 30px;
+  margin: 20px;
+}
+
+/*this are not bootstrap but custom classes */
+.fixedheight { height: 200px; width: 243px;  position:relative; border:1px solid; margin:7px;}
+.bottomaligned {position:absolute; bottom:0;  margin-bottom:7px;  left: 0;}
+.bottomright {position:absolute; bottom:0;  margin-bottom:7px; margin:7px; right: 0;}
+.bottomleft {position:absolute; bottom:0;  margin-bottom:7px;  left: 100px;}
+
+
+
+
+

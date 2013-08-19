@@ -1,0 +1,57 @@
+
+<div class="form-horizontal">
+  
+<%=  form_for @product do |f| %>
+
+<fieldset>
+  <legend><h1> Add a product </h1></legend>
+  <div class="col-lg-8"> 
+     <div class="form-group">
+      <label class="control-label"> <%= f.label :title %></label>
+  
+       <div class="form-control">
+         <%= f.text_field :title, :placeholder => "title" %>
+       </div>
+      </div>
+   </div>
+
+   <div class="col-lg-8">
+      <div class="form-group">
+       <label class="control-label"> <%= f.label :price, "Price (like 2.99)" %></label>
+       <div class="form-control"><%= f.text_field :price %></div>
+     </div>
+   </div>
+  
+    <div class="col-lg-8">
+      <div class="form-group">
+        <label class="control-label"> <%= f.label :stock %></label>
+        <div class="form-control"> <%= f.text_field :stock %></div>
+      </div>
+   </div>
+  
+   <div class="col-lg-8">
+     <div class="form-group"> 
+      <label class="control-label"> <%= f.label :image_url %> </label>
+      <div class="form-control"><%= f.text_field :image_url,  :placeholder => "Add image" %></div>
+     </div>  
+   </div>
+   
+   <div class="col-lg-8">
+    <div class="form-group">
+     <label class="control-label"><%= f.label :description %> </label>
+     <div> <%= f.text_area :description, class: 'form-control', placeholder: "description" %></div>
+    </div>
+  </div>
+  
+  <div class="col-lg-8">
+    <div class="form-group">
+       <div class="btn btn-primary">
+         <%= f.submit %>
+        </div>
+     </div>
+   </div>
+  
+</fieldset>
+  
+<%  end %>
+</div><!-- /.form-horizontal ->  

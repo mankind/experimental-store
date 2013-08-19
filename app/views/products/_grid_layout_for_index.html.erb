@@ -1,0 +1,40 @@
+<div class="row">
+  
+<% @products.each do |product| %>
+   
+     <!-- /.fixedheight and .bottomaligned are not bootstrap classes -->
+  <div class="col-lg-3 col-sm-4 col-6 fixedheight ">
+    
+    <div class="img-responsive" alt="Responsive image"><%= image_tag product.image_url %></div>
+  
+      <div>
+       <span><%= link_to product.title, product_path(product)  %></span>
+        <p><%= product.description %></p>
+        <p><%= print_price(product.price) %></p>
+        <p><%= print_stock(product.stock) %> </p>
+        <div >
+          <% if user_signed_in? %>
+          <span class="bottomleft"><%= link_to 'edit', edit_product_path(product), class: "btn btn-primary"  %></span>
+          <span class="bottomright"><%= button_to "Delete", product, data: {confirm: 'Are u sure?'}, method: :delete, class: "btn btn-danger" %></span>
+          <% end %>
+          <span class="bottomaligned"> <%= button_to "Add to cart", order_items_path(product_id: product) %></span>
+              
+        </div>
+        <hr>
+       </div>
+    
+      
+    <br/>
+
+  </div><!-- /.col-lg-3 -->
+
+  <% end %>
+</div><!-- /.row -->
+
+<br/>
+
+<%= link_to 'Create a new Product', new_product_path %>
+<br/>
+<%# this is  a comment, note the # sign indicating comment %>
+<%#= link_to 'home page', home_path %>
+<%= link_to 'Back to home page', home_index_path %>

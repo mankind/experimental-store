@@ -1,0 +1,41 @@
+<div class="row">
+  
+  <%= form_for @order_item do |f| %>
+   
+    <fieldset>
+<!-- this fields are auto-created
+        <div class=col-lg-8>
+        <div class="form-group">
+          <label class="control-label"> <%= f.label :product_id %></label>
+          <div class="form-control"><% f.number_field :product_id %> </div>
+        </div>
+      </div>   
+      
+      <div class=col-lg-8>
+        <div class="form-group">
+          <label class="control-label"> <%= f.label :order_id %></label>
+          <div class="form-control"><% f.number_field :order_id %> </div>
+        </div>
+      </div> 
+ -->
+      <legend> <%= @order_item.product.title %></legend>
+      
+      <div class=col-lg-8>
+        <div class="form-group">
+          <label class="control-label"> <%= f.label :quantity %></label>
+          <div class="form-control"><%= f.number_field :quantity %> </div>
+           
+        </div>
+      </div> 
+      
+      <div class=col-lg-8>
+        <div class="btn btn-primary">
+          <%= f.submit %>
+        </div>
+      </div> 
+      
+    </fieldset>
+  
+  <% end %>
+  
+</div>

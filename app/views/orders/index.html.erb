@@ -1,0 +1,13 @@
+<% @orders.each do |order| %>
+
+
+   <div><%= order.user_id %></div>
+ 
+   <div> <%= order.status %></div>
+   <%= link_to 'edit order', edit_order_path(order) %>
+   <%= link_to 'show', order %>
+<%= button_to 'destroy', order,  data: {confirm: 'yes to delete'}, method: :delete %>
+
+<% end %>
+<br/>
+<%= link_to 'create an order', new_order_path %>

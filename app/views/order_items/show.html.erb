@@ -1,0 +1,15 @@
+
+
+<div class="col-lg-3 col-sm-4 col-6">
+  <div><%= @order_item.product_id %> </div>
+   <div><%= @order_item.order_id%> </div>
+
+  <p>
+    <strong>Quantity:</strong>
+    <%= @order_item.quantity %>
+  </p>
+  <p>
+  <%= link_to 'edit', edit_order_item_path(@order) %>
+  <%= link_to 'Back', orders_path  %>
+  </p>
+</div>

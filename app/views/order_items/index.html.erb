@@ -1,0 +1,11 @@
+<% @order_items.each do |order_item|%>
+
+  <div><%= order_item.product_id %> </div>
+  <div><%= order_item.order_id%> </div>
+  <%= link_to 'show', order_item %>
+  <%= link_to 'edit', edit_order_item_path(order_item) %>
+<%= button_to 'Destroy', order_item, data: {confirm: 'are you sure'}, method: :delete %>
+
+<% end %>
+<br/>
+<%= link_to 'create new', new_order_item_path %>

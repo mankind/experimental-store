@@ -1,0 +1,11 @@
+
+<div class="col-lg-3 col-sm-4 col-6">
+  <div><%= @user.email %></div>
+  
+ <div> <%= @user.current_sign_in_ip %> </div>
+ <div class="btn"> <%= link_to "Edit", edit_user_path(@user) %>  </div>
+
+  
+  <%= link_to 'Back', users_path %>
+</div>
+

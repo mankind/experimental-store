@@ -1,0 +1,25 @@
+<div class="row">
+<%= form_for @order do |f| %>
+<fieldset>  
+  <div class="col-lg-8">
+    <div class="form-group">
+      <label class="control-label"><%= f.label :user_id %></label>
+      <div class="form-control"><%= f.number_field :user_id %></div>
+    </div>
+  </div>
+  
+  <div class="col-lg-8">
+    <div class="form-group">
+      <label class="control-label"> <%= f.label :status %></label>
+      <div class="form-control"<%= f.text_field :status %></div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="btn btn-primary">
+        <%= f.submit %>
+    </div>
+  </div>
+</fieldset>
+<% end %>
+</div>
