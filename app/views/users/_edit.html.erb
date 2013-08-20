@@ -1,8 +1,9 @@
 <div class="row">
   
-  <%= form_for(@user, :url =>  { :action => "update" }) do |f| %>
-  <!-- form_for(@news, :url => edit_user_path(@user)) -->
  
+   <%= form_for @user do |f| %>
+  <!-- form_for(@news, :url => edit_user_path(@user)) -->
+  <!--  form_for(resource_name, resource, :url => registration_path(resource_name), :html => { :method => :put })  -->
    <% if @user.errors.any? %>
     <div id="error_explanation" class="alert-danger">
       <h2><%= pluralize(@user.errors.count, "error") %>
@@ -16,7 +17,7 @@
     <% end %>
   
     <fieldset>
-      <legend>Registration form </legend>
+      <legend>Edit User details </legend>
       
       <div class="col-lg-8">
         <div class="form-group">
@@ -27,7 +28,8 @@
       
       <div class="col-lg-8">
         <div class="form-group">
-          <label class="control-label"><%= f.label :password %> </label>
+          <label class="control-label"><%= f.label :password %>
+            <i>(leave blank if you don't want to change it)</i></label>
           <div class="form-control"><%= f.password_field :password%> </div>
         </div>
       </div>
@@ -39,10 +41,20 @@
         </div>
       </div>
       
+       <div class="col-lg-8">
+         <div class="form-group">
+           <label class="control-label">
+          <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+           </label>
+         
+           <div class="form-control"><%= f.password_field :current_password %></div>
+         </div>
+      </div>
+      
       <div class="col-lg-8">
         <div class="form-group">
           <div class="btn btn-primary">
-            <%= f.submit "Sign Up" %>
+            <%= f.submit "Update" %>
           </div>
         </div>
       </div>

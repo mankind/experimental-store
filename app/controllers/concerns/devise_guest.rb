@@ -41,8 +41,8 @@ module DeviseGuest
     guest_orders = guest_user.orders.all
     guest_orders.each do |order|
       #order.user_id = current_user.id
+      #order.save!
       order.update(user_id: current_user.id)
-      order.save!
     end
   end
 

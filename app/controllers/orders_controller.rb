@@ -27,8 +27,12 @@ class OrdersController < ApplicationController
   end
   
   def update
-    if @order.update(order_params)
-      redirect_to products_path
+    if @order.update(order_params.merge(status: 'submitted') )
+       session[:order_id] = nil
+
+      #redirect_to products_path
+      redirect_to confirm_order_path(@order), notice: 'Order was successfully updated.'
+      
     else
       render 'edit'
     end   
@@ -39,6 +43,10 @@ class OrdersController < ApplicationController
     redirect_to  products_path
   end
   
+  def confirm
+    
+  end
+  
   private
   
   def set_order
@@ -46,7 +54,7 @@ class OrdersController < ApplicationController
   end
   
   def order_params
-    params.require(:order).permit(:user_id, :status)
+    params.require(:order).permit(:user_id, :status, :address_id)
   end
   
 end

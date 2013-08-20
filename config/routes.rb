@@ -1,24 +1,26 @@
 Experimental::Application.routes.draw do
  
-  devise_for :users, :path_prefix => 'd', skip: [:registrations], controllers: {sessons: "sessions", registrations: "users"}
+  
+  devise_for :users, :path_prefix => 'd', skip: [:registrations], controllers: {sessons: "sessions"}
   #devise_for :users, :skip => :all , :path_prefix => 'd', skip: [:registrations],
   resources :users
  
-=begin
-  scope :users do
-    get 'edit/:id' => 'users#edit', :as => :user_edit
-    post 'new' => 'users#new'
-     #match 'edit/:id' => 'users#edit',  via: [:get]
+  resources :addresses
+
+  resources :orders do
+    member do
+      get :confirm
+    end
   end
-=end
-  resources :orders
 
   resources :order_items
 
   resources :products
   
   get "home/index"
-  root  "home#index"
+  
+  #root  "home#index"
+  root  "products#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

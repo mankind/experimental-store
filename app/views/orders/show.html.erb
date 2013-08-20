@@ -1,15 +1,16 @@
 <h1>Your Order</h1>
-
+<!--To have a select box at the bottom for address, a “submit” button, we added the form_for that here above the opening table tag  -->
+<%= form_for @order do |f| %>
 <table class="table table-striped">
   <tr>
     <th>Customer</th>
     
-    <td><%= @order.user.email.inspect if @order.user %></td>
+    <td><%= @order.user.email if @order.user %></td>
   </tr>
   <tr>
     <th>Status:</th>
    
-    <td><%= @order.status.inspect %> </td>
+    <td><%= @order.status %> </td>
   </tr>
   <tr>
     <th>Items:</th>
@@ -41,8 +42,25 @@
       <td><%= link_to "Destroy", item, method: :delete, data: {comfirm: 'Are you sure'} %>  </td>    
     </tr>
    <% end %>
+  
+    <tr>
+      <th>Shipping To:</th>
+      <td>
+        <!-- form helper select expects the name of the attribute being set, which address_id, then an array of options -->
+        <!--  Each of those options should be a two element array where the first element is the name to show on the form
+            and the second is the value to submit  -->
+        
+        <%= f.select :address_id, current_user.addresses.collect{|a| [a.to_s, a.id]} %>
+        <%= link_to 'Add an Address', new_address_path %>
+        
+       </td>
+     </tr>
+     <tr>
+       <th>Submit Order:</th>
+       <td><%= f.submit "Submit Order" %></td>
+     </tr>
 </table>
-
+<% end %> <!-- closes the form tag above opening table tag -->
 
 <td><%= link_to "Empty Cart", @order, data: {confirm: 'Are you sure?'}, method: :delete %>
   <br/>

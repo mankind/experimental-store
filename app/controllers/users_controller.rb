@@ -25,11 +25,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-
-      current_user.move_guest_cart_to_user(@user) if current_user && current_user.guest?
-      sign_in :user, @user    #immediately signs in the user
-      
-      #current_or_guest_user if current_user && current_user.guest?
+      sign_in :user, @user #immediately signs in newly registerd user
+      load_order #if current_user && current_user.guest?
+      #current_user.move_guest_cart_to_user(@user) #if current_user && current_user.guest?
       redirect_to @user, {notice: 'User was created'}
     else
       render 'new'
@@ -37,7 +35,14 @@ class UsersController < ApplicationController
   end
   
   def update
+    # required for settings form to submit when password is left blank
+    if params[:user][:password].blank?
+      params[:user].delete("password")
+      params[:user].delete("password_confirmation")
+    end
     if @user.update(user_params)
+      # Sign in the user by passing validation in case his password changed
+      sign_in :user, @user, :bypass => true 
       redirect_to @user, {notice: 'Your user details were updated'}
     else
       render 'edit'

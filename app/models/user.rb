@@ -6,10 +6,13 @@ class User < ActiveRecord::Base
            :rememberable, :trackable, :validatable
   
   has_many :orders
+  has_many :addresses
   
   #convert the items in current cart added by a guest to  a user after the guest signs up
   def move_guest_cart_to_user(user)
-    orders.update_all(user_id: user.id)
+    orders.each do |order| 
+      order.update(user_id: user.id)
+    end
   end
   
 end
