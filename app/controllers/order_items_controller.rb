@@ -1,5 +1,5 @@
 class OrderItemsController < ApplicationController
-  before_action :load_order, only: [:create]
+  before_action :load_current_cart, only: [:create]
   before_action :set_order_item, only: [:show, :edit, :destroy]
   respond_to :html, :json
 
@@ -34,7 +34,7 @@ class OrderItemsController < ApplicationController
     #@order_item = OrderItem.new(product_id: params[:product_id], order_id: @order_id)
     #@order_item = @order.order_items.new(product_id: params[:product_id], quantity: 1)
     
-    @order_item = @order.order_items.find_or_initialize_by(product_id: params[:product_id])
+    @order_item = @cart.order_items.find_or_initialize_by(product_id: params[:product_id])
     @order_item.quantity += 1
    
     if @order_item.save

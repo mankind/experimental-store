@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in :user, @user #immediately signs in newly registerd user
-      load_order #if current_user && current_user.guest?
+      load_current_cart #if current_user && current_user.guest?
       #current_user.move_guest_cart_to_user(@user) #if current_user && current_user.guest?
       redirect_to @user, {notice: 'User was created'}
     else
