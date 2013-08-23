@@ -7,6 +7,8 @@ class Address < ActiveRecord::Base
   
   has_many :orders
   belongs_to :user
+  belongs_to :store
+  belongs_to :customer
   
   #builds an array of the attributes you want to display, then join them together with a comma and a space
   def to_s

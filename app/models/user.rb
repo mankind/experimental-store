@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable,  :registerable,
@@ -7,6 +8,13 @@ class User < ActiveRecord::Base
   
   has_many :orders
   has_many :addresses
+  has_many :customers
+  has_many :carts
+  belongs_to :store
+  
+  validates :username, presence: true, uniqueness: true
+  validates :username, :firstname, :lastname, :email, presence: true
+  validates :role, presence: true, numericality: true
   
   #convert the items in current cart added by a guest to  a user after the guest signs up
   def move_guest_cart_to_user(user)

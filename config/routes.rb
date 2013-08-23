@@ -1,6 +1,12 @@
 Experimental::Application.routes.draw do
  
   
+  resources :carts
+
+  resources :customers
+
+  resources :stores
+
   devise_for :users, :path_prefix => 'd', skip: [:registrations], controllers: {sessons: "sessions"}
   #devise_for :users, :skip => :all , :path_prefix => 'd', skip: [:registrations],
   resources :users

@@ -20,6 +20,7 @@ class ProductsController < ApplicationController
   
   def create 
     @product = Product.new(product_params)
+    #@product.store_id = current_store.id
     if @product.save
       redirect_to products_path, {notice: 'Product was successfully created.' }
       
@@ -52,6 +53,6 @@ class ProductsController < ApplicationController
   end
   
   def product_params
-    params.require(:product).permit(:title, :price, :stock, :description, :image_url)
+    params.require(:product).permit(:title, :price, :stock, :description, :image_url, :store_id)
   end
 end

@@ -17,7 +17,7 @@
           <span class="bottomleft"><%= link_to 'edit', edit_product_path(product), class: "btn btn-primary"  %></span>
           <span class="bottomright"><%= button_to "Delete", product, data: {confirm: 'Are u sure?'}, method: :delete, class: "btn btn-danger" %></span>
           <% end %>
-          <span class="bottomaligned"> <%= button_to "Add to cart", order_items_path(product_id: product) %></span>
+          <span class="bottomaligned"> <%= button_to "Add to cart", line_items_path(product_id: product) %></span>
               
         </div>
         <hr>

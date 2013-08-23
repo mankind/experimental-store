@@ -1,5 +1,4 @@
 <div class="row">
-  
  
    <%= form_for @user do |f| %>
   <!-- form_for(@news, :url => edit_user_path(@user)) -->
@@ -19,14 +18,35 @@
     <fieldset>
       <legend>Edit User details </legend>
       
-      <div class="col-lg-8">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="control-label"><%= f.label :username %></label>
+          <div class="form-control"><%= f.text_field :username %></div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6">
         <div class="form-group">
           <label class="control-label"><%= f.label :email %></label>
           <div class="form-control"><%= f.email_field :email %></div>
         </div>
       </div>
       
-      <div class="col-lg-8">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="control-label"><%= f.label :firstname %></label>
+          <div class="form-control"><%= f.text_field :lastname %></div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="control-label"><%= f.label :lastname %></label>
+          <div class="form-control"><%= f.text_field :lastname %></div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6">
         <div class="form-group">
           <label class="control-label"><%= f.label :password %>
             <i>(leave blank if you don't want to change it)</i></label>

@@ -1,6 +1,6 @@
 class OrderItemsController < ApplicationController
-  before_action :load_order, only: [:create]
-  before_action :set_order_item, only: [:show, :edit, :destroy]
+  before_action :load_current_cart, only: [:create]
+  before_action :set_order_item, only: [:show, :edit, :update, :destroy]
   respond_to :html, :json
 
   #we don't need the :index, :show and :new actions, so to be removed
@@ -34,13 +34,14 @@ class OrderItemsController < ApplicationController
     #@order_item = OrderItem.new(product_id: params[:product_id], order_id: @order_id)
     #@order_item = @order.order_items.new(product_id: params[:product_id], quantity: 1)
     
-    @order_item = @order.order_items.find_or_initialize_by(product_id: params[:product_id])
+    @order_item = @cart.order_items.find_or_initialize_by(product_id: params[:product_id])
     @order_item.quantity += 1
    
     if @order_item.save
-      redirect_to  @order, {notice: 'Successfully added product to cart.' }
+      redirect_to  @line_item.cart, {notice: 'Successfully added product to cart.' }
     else
-      render 'new'
+     # render 'new'
+      redirect_to products_path
     end
     
   end
@@ -52,7 +53,7 @@ class OrderItemsController < ApplicationController
        @order_item.destroy
        redirect_to  products_path, {notice: 'Item was deleted from your cart.' }
     elsif  @order_item.update(order_item_params)
-      redirect_to @order_item.order, {notice: 'successfully updated the order item.' }
+      redirect_to @order_item.cart, {notice: 'successfully updated the order item.' }
     else
       render 'edit'
     end
@@ -71,7 +72,7 @@ class OrderItemsController < ApplicationController
   end
   
   def order_item_params
-    params.require(:order_item).permit(:order_id, :product_id, :quantity)
+    params.require(:order_item).permit(:cart_id, :product_id, :quantity)
   end
   
   
