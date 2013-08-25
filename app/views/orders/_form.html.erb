@@ -1,5 +1,12 @@
 <div class="row">
 <%= form_for @order do |f| %>
+  
+   <% if @order.errors.any? %>
+        <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+    <% end %>
+  
 <fieldset>
 <!--  
   <div class="col-lg-8">
@@ -16,12 +23,12 @@
     </div>
   </div>
 -->
-  
-  
+  <%= debug @order %>
+  <%= debug current_user %>
   <div class="col-lg-8">
     <div class="form-group">
        <label for="address">Add an address</label>
-      <div class="form-control">f.select :address_id, current_user.addresses.collect{|a| [a.to_s, a.id]}</div>
+      <div class="form-control"><%= f.select :address_id, current_user.addresses.collect{|a| [a.to_s, a.id]} %></div>
       <%= link_to 'Add an Address', new_address_path %>
     </div>
   </div>
@@ -31,6 +38,7 @@
         <%= f.submit "Complete your Order"  %>
     </div>
   </div>
+  
 </fieldset>
 <% end %>
 </div>

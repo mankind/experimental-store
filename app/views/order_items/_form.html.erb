@@ -1,6 +1,7 @@
 <div class="row">
   
   <%= form_for @order_item do |f| %>
+  
     <% if @order_item.errors.any? %>
         <% @order_item.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>

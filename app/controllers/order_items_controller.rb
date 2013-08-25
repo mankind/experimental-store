@@ -1,6 +1,6 @@
 class OrderItemsController < ApplicationController
   before_action :load_current_cart, only: [:create]
-  before_action :set_order_item, only: [:show, :update, :edit, :destroy]
+  before_action :set_order_item, only: [:show, :edit, :destroy]
   respond_to :html, :json
 
   
@@ -32,12 +32,13 @@ class OrderItemsController < ApplicationController
   # for  += to work as described above, the default value for quantity must be set to zero in the database
   
   def create
-    #@order_item = OrderItem.new(product_id: params[:product_id], order_id: @order_id)
-    #@order_item = @order.order_items.new(product_id: params[:product_id], quantity: 1)
+    #@order_item = OrderItem.new(product_id: params[:product_id], cart_id: @cart_id)
+    #@order_item = @cart.order_items.new(product_id: params[:product_id], quantity: 1)
     
     #product = Product.find(params[:product_id])
     #@order_item = @cart.order_items.find_or_initialize_by(product_id: product.id)
     Rails.logger.debug("My object: #{@cart.inspect}")
+    Rails.logger.debug("My object: #{@cart.user_id.inspect}")
     Rails.logger.debug("The Product id is : #{params[:product_id].inspect}")    
     @order_item = @cart.order_items.find_or_initialize_by(product_id: params[:product_id])
     @order_item.quantity += 1
@@ -57,7 +58,7 @@ class OrderItemsController < ApplicationController
        @order_item.destroy
        redirect_to  products_path, {notice: 'Item was deleted from your cart.' }
     elsif  @order_item.update(order_item_params)
-      redirect_to @order_item.order, {notice: 'successfully updated the order item.' }
+      redirect_to @order_item.cart, {notice: 'successfully updated the order item.' }
     else
       render 'edit'
     end
@@ -66,7 +67,8 @@ class OrderItemsController < ApplicationController
   def destroy
     @order_item.destroy
     #redirect_to products_path
-    redirect_to @order_item.order
+    redirect_to @order_item.cart
+    #redirect_to cart_path
   end
   
   private

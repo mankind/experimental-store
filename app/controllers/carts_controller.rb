@@ -44,7 +44,7 @@ class CartsController < ApplicationController
   end
   
   def invalid_cart
-    logger.error "ERROR : Attempt to access invalid cart: '#{params[id]}' "
-    redirect_to products_path, notice: 'invalid cart'
+    logger.error "ERROR : Attempt to access invalid cart: '#{params[:id]}' "
+  redirect_to products_path, notice: 'invalid cart or empty cart'
   end
 end

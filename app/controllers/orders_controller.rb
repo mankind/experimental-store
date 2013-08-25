@@ -22,9 +22,13 @@ class OrdersController < ApplicationController
   end
   
   def create
-    @order = Order.new(order_params)
+    #@order = Order.new(order_params)
+    @order = Order.new(user_id: current_user.id, address_id: current_user.addresses(&:id))
     @order.add_orders_items_from_cart(@cart)
+    Rails.logger.debug(" order has: #{@order.order_items.inspect}")
     @order.status = "completed"
+    
+    Rails.logger.debug("Cart has: #{@cart.order_items.inspect}")
     if @order.save
       Cart.destroy(session[:cart_id])
       session[:cart_id] = nil
@@ -58,7 +62,7 @@ class OrdersController < ApplicationController
   end
   
   def order_params
-    params.require(:order).permit(:user_id, :status)
+    params.require(:order).permit(:user_id, :address_id, :status)
   end
   
 end
