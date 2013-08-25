@@ -16,6 +16,25 @@ class ApplicationController < ActionController::Base
  end
  
 =end
+ 
+#https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
+#if you happen to have before_filter :authenticate_user! in your ApplicationController you will need to use before_filter :store_location
+#rather than after_filter :store_location and make sure to place it ahead of before_filter :authenticate_user!
+  after_filter :store_location
+
+  def store_location
+  # store last url - this is needed for post-login redirect to whatever the user last visited.
+    if (request.fullpath != "/users/sign_in" && \
+        request.fullpath != "/users/sign_up" && \
+        request.fullpath != "/users/password" && \
+        !request.xhr?) # don't store ajax calls
+      session[:previous_url] = request.fullpath 
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:previous_url] || root_path
+  end
   
   private
   

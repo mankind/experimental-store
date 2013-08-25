@@ -1,6 +1,7 @@
 <div class="row">
 <%= form_for @order do |f| %>
-<fieldset>  
+<fieldset>
+<!--  
   <div class="col-lg-8">
     <div class="form-group">
       <label class="control-label"><%= f.label :user_id %></label>
@@ -14,10 +15,20 @@
       <div class="form-control"<%= f.text_field :status %></div>
     </div>
   </div>
-
+-->
+  
+  
+  <div class="col-lg-8">
+    <div class="form-group">
+       <label for="address">Add an address</label>
+      <div class="form-control">f.select :address_id, current_user.addresses.collect{|a| [a.to_s, a.id]}</div>
+      <%= link_to 'Add an Address', new_address_path %>
+    </div>
+  </div>
+  
   <div class="col-lg-8">
     <div class="btn btn-primary">
-        <%= f.submit %>
+        <%= f.submit "Complete your Order"  %>
     </div>
   </div>
 </fieldset>

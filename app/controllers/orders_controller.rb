@@ -1,6 +1,9 @@
 class OrdersController < ApplicationController
+    
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :load_current_cart, only: [:new, :create]
+  before_action :authenticate_user!
+  #skip_before_action :authenticate_user!, only: [:new, :create]  #skips the authentication for the mentioned methods 
   respond_to :html, :json
   
   def index
@@ -56,15 +59,6 @@ class OrdersController < ApplicationController
   
   def order_params
     params.require(:order).permit(:user_id, :status)
-  end
-  
-  #ability to add lineitems ie items in the cart to order
-  def add_orders_items_from_cart(cart)
-    cart.order_items.each do |item|
-      item.cart_id = nil
-      order_items << item
-    end
-    
   end
   
 end

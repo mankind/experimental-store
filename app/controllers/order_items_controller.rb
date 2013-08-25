@@ -1,8 +1,9 @@
 class OrderItemsController < ApplicationController
   before_action :load_current_cart, only: [:create]
-  before_action :set_order_item, only: [:show, :edit, :destroy]
+  before_action :set_order_item, only: [:show, :update, :edit, :destroy]
   respond_to :html, :json
 
+  
   #we don't need the :index, :show and :new actions, so to be removed
 
   def index
@@ -34,11 +35,15 @@ class OrderItemsController < ApplicationController
     #@order_item = OrderItem.new(product_id: params[:product_id], order_id: @order_id)
     #@order_item = @order.order_items.new(product_id: params[:product_id], quantity: 1)
     
+    #product = Product.find(params[:product_id])
+    #@order_item = @cart.order_items.find_or_initialize_by(product_id: product.id)
+    Rails.logger.debug("My object: #{@cart.inspect}")
+    Rails.logger.debug("The Product id is : #{params[:product_id].inspect}")    
     @order_item = @cart.order_items.find_or_initialize_by(product_id: params[:product_id])
     @order_item.quantity += 1
-   
+    Rails.logger.debug("The order_item contains : #{@order_item.inspect}")    
     if @order_item.save
-      redirect_to  @order, {notice: 'Successfully added product to cart.' }
+      redirect_to  @cart, {notice: 'Successfully added product to cart.' }
     else
       render 'new'
     end

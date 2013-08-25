@@ -1,0 +1,43 @@
+
+<table class="table table-striped">
+  <tr>
+    <th>Customer</th>
+    
+    <td><%= @cart.user.email if @cart.user %></td>
+  </tr>
+  
+  <tr>
+    <th>Items:</th>
+    <td><%= @cart.order_items.count %></td>
+  </tr>
+   <tr>
+    <th>Order Total:</th>
+    <td><%= print_price @cart.total %></td>
+  </tr>
+  
+  <tr>
+    <th>Items</th>
+    <th> Title</th>
+    <th>Quantity</th>
+    <th>Stock </th>
+    <th> Unit Price</th>
+    <th>Sub Total</th>
+    <th> Remove</th>
+  </tr>
+  
+  <% @cart.order_items.each do |item| %>
+    <tr>
+      <td><%= image_tag "products/#{item.product.image_url}" %> </td>
+      <td><%= item.product.title %></td>
+      <td><%= link_to item.quantity, edit_order_item_path(item) %></td>
+      <td><%= print_stock item.product.stock, item.quantity %></td>
+      <td><%= print_price item.product.price %> </td>
+      <td><%= print_price item.subtotal %></td>
+      <td><%= link_to "Remove from Cart", item, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+    </tr>
+  <% end %> 
+</table>
+
+<%= button_to "Checkout", new_order_path %>
+<%= link_to "Empty Cart", @cart, method: :delete, data: {confirm: 'Are you sure'} %>
+<%= link_to "Back to Products listing", products_path %>

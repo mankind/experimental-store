@@ -1,7 +1,11 @@
 <div class="row">
   
   <%= form_for @order_item do |f| %>
-   
+    <% if @order_item.errors.any? %>
+        <% @order_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+    <% end %>
     <fieldset>
 <!-- this fields are auto-created
         <div class=col-lg-8>
@@ -18,7 +22,6 @@
         </div>
       </div> 
  -->
-      <legend> <%= @order_item.product.title %></legend>
       
       <div class=col-lg-8>
         <div class="form-group">
