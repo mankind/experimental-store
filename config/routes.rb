@@ -1,6 +1,8 @@
 Experimental::Application.routes.draw do
  
   
+  resources :payments
+
   resources :carts
 
   devise_for :users, :path_prefix => 'd', skip: [:registrations], controllers: {sessons: "sessions"}

@@ -11,7 +11,11 @@
 
 User.delete_all
 @user = User.create!(email: 'a@test.com', password: 'abcdefgh', password_confirmation: 'abcdefgh')
+@user.seller = true
 @b = User.create!(email: 'b@test.com', password: 'abcdefgh', password_confirmation: 'abcdefgh')
+@b.seller = true
+
+@buyer = User.create!(email: 'buyer@test.com', password: 'abcdefgh', password_confirmation: 'abcdefgh')
 
 Address.delete_all
 Address.create(user_id: @user.id, line1: "123 First Street", line2: "Suite B", city: "Washington", state: "DC", zip: "20011")

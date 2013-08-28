@@ -14,3 +14,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+#ignore certain passowrds add to myseetings.yml file
+/config/mysettings.yml
