@@ -38,11 +38,12 @@ module DeviseGuest
 #hand of from guest_user to current_user
 
   def logging_in
-    guest_orders = guest_user.orders.all
-    guest_orders.each do |order|
+    guest_carts = guest_user.carts.load
+    
+    guest_carts.each do |cart|
       #order.user_id = current_user.id
       #order.save!
-      order.update(user_id: current_user.id)
+      cart.update(user_id: current_user.id)
     end
   end
 
