@@ -1,5 +1,7 @@
 class Product < ActiveRecord::Base
   has_many :order_items
+  
+  #validates :user_id, :inclusion => { :in => [true, false] }
   validates :price, presence: true, numericality: true
   validates :stock, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   

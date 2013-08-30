@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :addresses
   
+  def is_seller?
+    self.seller = true
+  end
+  
   #convert the items in current cart added by a guest to  a user after the guest signs up
   def move_guest_cart_to_user(user)
     orders.each do |order| 

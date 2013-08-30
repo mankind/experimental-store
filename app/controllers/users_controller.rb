@@ -22,6 +22,8 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  #load_current_cart is called to transfer cart from guest to signed_in user
+  #load_current_cart is defined in ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
