@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
     
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :load_current_cart, only: [:new, :create]
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   #skip_before_action :authenticate_user!, only: [:new, :create]  #skips the authentication for the mentioned methods 
   respond_to :html, :json
   
@@ -59,6 +59,7 @@ class OrdersController < ApplicationController
   
   def set_order
     @order = Order.find(params[:id])
+    respond_with @order  
   end
   
   def order_params

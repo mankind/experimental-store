@@ -1,3 +1,6 @@
 class OrderSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :status
-end
+  attributes :id, :status, :address
+  
+  # look up :subject on the model, but use +user+ in the JSON
+  attribute :user_id, key: :user  
+ end
