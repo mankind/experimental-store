@@ -25,8 +25,9 @@ class OrdersController < ApplicationController
   def create
     #@order = Order.new(order_params)
     @order = Order.new(user_id: current_user.id, address_id: current_user.addresses(&:id))
-    @order.create_customer(params[:stripeToken], order_id: @order.id)
+   
     @order.add_orders_items_from_cart(@cart)
+     #@order.create_customer(token: params[:stripeToken], order_id: @order.id, user_id: current_user.id)
     Rails.logger.debug(" order has: #{@order.order_items.inspect}")
     @order.status = "completed"
     

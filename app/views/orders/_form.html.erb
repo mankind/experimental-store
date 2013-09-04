@@ -24,27 +24,22 @@
   </div>
 -->
   <%= debug @order %>
-  <%= debug current_user %>
+  <%= debug current_user.addresses %>
   <div class="col-lg-8">
     <div class="form-group">
        <label for="address">Add an address</label>
-      <div class="form-control"><%= f.select :address_id, current_user.addresses.collect{|a| [a.to_s, a.id]} %></div>
-      <%= link_to 'Add an Address', new_address_path %>
+        <div class="form-control"><%= f.select :address_id, current_user.addresses.collect{|a| [a.to_s, a.id]} %></div>
+        <%= link_to 'Add an Address', new_address_path %>
     </div>
   </div>
   
-   <div class="col-lg-8">
+   <div class="col-lg-6">
     <div class="form-group">
-     <% if current_user %>
-         <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-           data-key="<%= STRIPE_PUBLIC_KEY %>"
-            data-description="Your order"
-            data-amount="<%= print_price @order.total * 100 %>" >
-      
-        </script>
-      <% end %>
+       <%= render 'stripe_checkout_form' %> 
+     <!--  <%= render 'stripejs_form' %>  -->
      </div>
     </div>
+  
   
   <div class="col-lg-8">
     <div class="btn btn-primary">

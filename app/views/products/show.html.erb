@@ -8,6 +8,8 @@
 
   <p> <%= @product.image_url %> </p>  
   
-  <%= link_to 'edit', edit_product_path(@product), class: "btn btn-primary"  %>
+  <% if user_signed_in? %>
+     <%= link_to 'edit', edit_product_path(@product), class: "btn btn-primary"  %>
+  <% end %>
 <%= link_to 'Back', products_path %>
 </div>

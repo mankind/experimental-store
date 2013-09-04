@@ -6,6 +6,8 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :address
   
+  attr_accessor :stripe_card_token
+  
   def total
     order_items.map(&:subtotal).sum
   end
