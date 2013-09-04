@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   before_action :load_current_cart, only: [:new, :create]
   #before_action :authenticate_user!
   #skip_before_action :authenticate_user!, only: [:new, :create]  #skips the authentication for the mentioned methods 
+  
   respond_to :html, :json
   
   def index
@@ -24,6 +25,7 @@ class OrdersController < ApplicationController
   def create
     #@order = Order.new(order_params)
     @order = Order.new(user_id: current_user.id, address_id: current_user.addresses(&:id))
+    @order.create_customer(params[:stripeToken], order_id: @order.id)
     @order.add_orders_items_from_cart(@cart)
     Rails.logger.debug(" order has: #{@order.order_items.inspect}")
     @order.status = "completed"
@@ -59,6 +61,9 @@ class OrdersController < ApplicationController
   
   def set_order
     @order = Order.find(params[:id])
+    @address = Address.find_by(id: @order.user_id)
+    # @addresses =  @order.user.addresses 
+    @addresses =  current_user.addresses 
     respond_with @order  
   end
   

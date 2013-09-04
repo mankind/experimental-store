@@ -1,0 +1,51 @@
+<h1>Your Order</h1>
+<!--To have a select box at the bottom for address, a “submit” button, we added the form_for that here above the opening table tag  -->
+
+<table class="table table-striped">
+  <tr>
+    <th>Customer</th>
+       <td><%= @order.user.email if @order.user %></td>  
+  </tr>
+  <tr>
+    <th>Status:</th>
+   
+    <td><%= @order.status %> </td>
+  </tr>
+  <tr>
+    <th>Items:</th>
+    <td><%= @order.order_items.count %></td>
+  </tr>
+   <tr>
+    <th>Order Total:</th>
+    <td><%= print_price @order.total %></td>
+  </tr>
+  <tr>
+    <th>Items</th>
+    <th>Title</th>
+    <th>Quantity</th>
+    <th>Stock</th>
+    <th>Unit Price</th>
+    <th>Subtotal</th>
+     <th>Remove</th>
+  </tr>
+  
+   <% @order.order_items.each do |item|%>
+    <tr>
+      <td> <%= image_tag "products/#{item.product.image_url}" %></td>
+      <td><%= item.product.title %> </td>
+      <td><%= link_to item.quantity, edit_order_item_path(item) %> </td>
+      <td><%= print_stock item.product.stock, item.quantity %>  </td>
+      <td><%= print_price item.product.price %> </td>
+      <td><%= print_price item.subtotal %> </td>
+      <td><%= link_to "Destroy", item, method: :delete, data: {comfirm: 'Are you sure'} %>  </td>    
+    </tr>
+   <% end %>
+  
+    <tr>
+      <th> Shipping To: </th>
+      <td> <%= @address %></td>
+     </tr>
+   
+</table>
+
+<td><%= link_to "Back to Product Listing", products_path  %></td>
