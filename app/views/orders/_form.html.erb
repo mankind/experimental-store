@@ -28,15 +28,15 @@
   <div class="col-lg-8">
     <div class="form-group">
        <label for="address">Add an address</label>
-        <div class="form-control"><%= f.select :address_id, current_user.addresses.collect{|a| [a.to_s, a.id]} %></div>
-        <%= link_to 'Add an Address', new_address_path %>
+      <div class="form-control"><%= f.select :address_id, current_user.addresses.collect{|a| [a.to_s, a.id]} %></div>
+          <%= link_to 'Add an Address', new_address_path %>
     </div>
   </div>
   
    <div class="col-lg-6">
     <div class="form-group">
-       <%= render 'stripe_checkout_form' %> 
-     <!--  <%= render 'stripejs_form' %>  -->
+        <%= render 'stripe_checkout_form' %> 
+     <!-- <%= render 'stripejs_form' %>   -->  
      </div>
     </div>
   

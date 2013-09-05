@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130828221447) do
+ActiveRecord::Schema.define(version: 20130905125059) do
 
   create_table "addresses", force: true do |t|
     t.string   "line1"
@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(version: 20130828221447) do
     t.string   "card_last4"
     t.string   "card_expiration"
     t.string   "card_type"
-    t.string   "stripe_card_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -83,6 +82,7 @@ ActiveRecord::Schema.define(version: 20130828221447) do
     t.datetime "updated_at"
     t.boolean  "guest",                  default: false
     t.boolean  "seller",                 default: false
+    t.string   "stripe_card_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

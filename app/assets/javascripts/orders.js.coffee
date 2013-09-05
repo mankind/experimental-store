@@ -24,17 +24,19 @@ subscription =
       expYear: $('#card_year').val()
     Stripe.createToken(card, subscription.handleStripeResponse)
   
-  handleStripeResponse: (status, response) ->
+   handleStripeResponse: (status, response) ->
+    ###  
     if status == 200
-      alert(response.id)
-      console.log response.id
-      ###
       $('#stripe_card_token').val(response.id)
       $('#new_order')[0].submit()
     else
       $('#stripe_error').text(response.error.message)
-      $('input[type=submit]').attr('disabled', false
-     ###
+      $('input[type=submit]').attr('disabled', false)
+    ###
+    if status == 200
+      alert(response.id)
+      console.log response.id
     else
       alert(response.error.message)
       console.log response.error.message
+    
