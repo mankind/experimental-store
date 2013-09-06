@@ -25,7 +25,7 @@ subscription =
     Stripe.createToken(card, subscription.handleStripeResponse)
   
    handleStripeResponse: (status, response) ->
-    ###  
+      
     if status == 200
       $('#stripe_card_token').val(response.id)
       $('#new_order')[0].submit()
@@ -39,4 +39,4 @@ subscription =
     else
       alert(response.error.message)
       console.log response.error.message
-    
+    ###

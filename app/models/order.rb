@@ -26,7 +26,7 @@ class Order < ActiveRecord::Base
   end
   
   def create_customer(params)
-    customer  = Payment.create_customer_in_stripe(params)
+    customer = Payment.create_customer_in_stripe(params)
   end
   
 end
