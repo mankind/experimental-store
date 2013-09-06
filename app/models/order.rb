@@ -2,6 +2,7 @@ class Order < ActiveRecord::Base
   
   validates :order_items, presence: true
  
+  has_many :payments
   has_many :order_items, dependent: :destroy
   belongs_to :user
   belongs_to :address
@@ -26,7 +27,15 @@ class Order < ActiveRecord::Base
   end
   
   def create_customer(params)
-    customer = Payment.create_customer_in_stripe(params)
+    payment_info = Payment.new
+    payment_info.create_customer_in_stripe(params)
+    Rails.logger.debug("create_customer has: #{params.inspect}") 
+    Rails.logger.debug("user id is: #{params[:user_id].inspect}")
+    Rails.logger.debug("stripe token is: #{params[:token].inspect}")
+  end
+  
+  def me(params)
+    Rails.logger.debug("me is: #{params.inspect}")
   end
   
 end

@@ -1,2 +1,3 @@
 class PaymentsController < ApplicationController
+  
 end

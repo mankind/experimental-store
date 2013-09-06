@@ -2,20 +2,22 @@ class Payment < ActiveRecord::Base
   belongs_to :user
   belongs_to :order
 
-  def self.create_customer_in_stripe(params)
+  def create_customer_in_stripe(params)
    #if valid?
     
     #self.order_id = params[:order_id]
     
     my_user = User.find(params[:user_id])
-    self.user_id = my_user
+    self.user = my_user
     
     if self.user.stripe_card_token.blank?
         user_email = self.user.email
         customer = Stripe::Customer.create(email: user_email, card: params[:token])
+      
+        Rails.logger.debug("customer object has: #{customer.inspect}")
         self.user.stripe_card_token = customer.id
       
-        self.card.last4  = customer.card.last4
+        self.card_last4  = customer.card.last4
         self.card_type = customer.card.type
         self.card_exp_month = customer.card.exp_month
         self.card_exp_year = customer.card.exp_year
