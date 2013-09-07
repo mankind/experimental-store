@@ -15,12 +15,15 @@ class Payment < ActiveRecord::Base
         customer = Stripe::Customer.create(email: user_email, card: params[:token])
       
         Rails.logger.debug("customer object has: #{customer.inspect}")
-        self.user.stripe_card_token = customer.id
+        Rails.logger.debug("cards object has: #{customer.cards.data.inspect}")
+        
       
-      self.card_last4  = customer.cards.data.last4
-      self.card_type = customer.cards.data.type
-      self.card_exp_month = customer.cards.data.exp_month
-      self.card_exp_year = customer.cards.data.exp_year
+        self.user.stripe_card_token = customer.id
+        card  = customer.cards.data
+        self.card_last4  = card["last4"].to_s
+        self.card_type = card["type"].to_s
+        self.card_exp_month = card["exp_month"].to_s
+        self.card_exp_year = card["exp_year"].to_s
       
         self.user.save
      end
