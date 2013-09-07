@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
   
   def new
     @order = Order.new
+    @order.user_id = current_user.id
   end
   
   def create
@@ -27,15 +28,9 @@ class OrdersController < ApplicationController
     @order = Order.new(user_id: current_user.id, address_id: current_user.addresses(&:id))
    
     @order.add_orders_items_from_cart(@cart)
-    c = {:token => params[:stripe_card_token], order_id: @order.id, user_id: current_user.id}
-    d = @order.me(c)
-    f = @order.create_customer(c)
     a = @order.create_customer(:token => params[:stripe_card_token], user_id: current_user.id)
     b = params[:stripe_card_token]
-    Rails.logger.debug(" for d the token id is : #{a}")
-    Rails.logger.debug(" for d the token id is : #{f}")
-    Rails.logger.debug(" for d the token id is : #{d}")
-    Rails.logger.debug(" for c the token id is : #{c}")
+    Rails.logger.debug(" for a the token id is : #{a}")
     Rails.logger.debug(" b id is : #{b}")
     #Rails.logger.debug(" order has: #{@order.order_items.inspect}")
     @order.status = "completed"

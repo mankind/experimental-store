@@ -8,7 +8,7 @@ class CartsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
   
   def index
-   Cart.all 
+   @carts = Cart.all 
   end
   
   def show
@@ -30,6 +30,8 @@ class CartsController < ApplicationController
   def destroy
     @cart.destroy
     session[:card_id] = nil
+   
+    Rails.logger.debug(" session id set to nil is : #{a}")
     redirect_to products_path, notice: 'Redirected to products after emptying cart'
   end
   
@@ -37,6 +39,8 @@ class CartsController < ApplicationController
   
   def set_cart
     @cart = Cart.find(params[:id])
+    #@cart = Cart.find(session[:card_id])
+    @session =  session[:card_id]
   end
   
   def cart_params

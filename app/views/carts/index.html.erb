@@ -1,5 +1,7 @@
 <% @carts.each do |cart| %>
-  <%= link_to 'Show', cart %>
+  <div>
+    <%= link_to 'Show', cart %>
   <%= link_to 'Edit', edit_cart_path(cart) %>
   <%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div> <br/>
 <% end %>

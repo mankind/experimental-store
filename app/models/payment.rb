@@ -16,16 +16,26 @@ class Payment < ActiveRecord::Base
       
         Rails.logger.debug("customer object has: #{customer.inspect}")
         Rails.logger.debug("cards object has: #{customer.cards.data.inspect}")
+        Rails.logger.debug("first cards object has: #{customer.cards.first.inspect}")
+        Rails.logger.debug("last4 from first cards object has: #{customer.cards.first.last4.inspect}")
+        Rails.logger.debug("last4 from card data object has: #{customer.cards.data[0].last4.inspect}")
+
+=begin
         
-      
         self.user.stripe_card_token = customer.id
-        card  = customer.cards.data
-        self.card_last4  = card["last4"].to_s
-        self.card_type = card["type"].to_s
-        self.card_exp_month = card["exp_month"].to_s
-        self.card_exp_year = card["exp_year"].to_s
-      
-        self.user.save
+        card  = customer.cards.first
+        #self.card_last4  = card["last4"]
+         self.card_last4  = card.last4
+        #self.card_type = card["type"]
+        self.card_type = card.type
+        self.card_exp_month = card["exp_month"]
+        self.card_exp_year = card["exp_year"]
+
+
+=end
+      card = customer.cards.data
+      self.last4 = card[0].last4
+      self.user.save
      end
      
      self.save!

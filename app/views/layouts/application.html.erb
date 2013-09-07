@@ -4,7 +4,7 @@
 
   <title>MyStore - Products: <%= controller.action_name %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag  "https://js.stripe.com/v2/", "https://checkout.stripe.com/v2/checkout.js", "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag  "https://js.stripe.com/v2/", "application", "data-turbolinks-track" => true %>
   
   <%= csrf_meta_tags %>
    <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>

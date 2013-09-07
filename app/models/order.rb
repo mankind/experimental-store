@@ -8,6 +8,7 @@ class Order < ActiveRecord::Base
   belongs_to :address
   
   attr_accessor :stripe_card_token
+  after_save  :update_payment
   
   def total
     order_items.map(&:subtotal).sum
@@ -27,15 +28,22 @@ class Order < ActiveRecord::Base
   end
   
   def create_customer(params)
-    payment_info = Payment.new
-    payment_info.create_customer_in_stripe(params)
+    @payment_info = Payment.new
+    @payment_info.create_customer_in_stripe(params)
+    @payment_info.order = self
     Rails.logger.debug("create_customer has: #{params.inspect}") 
     Rails.logger.debug("user id is: #{params[:user_id].inspect}")
     Rails.logger.debug("stripe token is: #{params[:token].inspect}")
+    #Rails.logger.debug("create_customer has: #{@payment_info.order.inspect}") 
   end
   
   def me(params)
     Rails.logger.debug("me is: #{params.inspect}")
   end
   
+  def update_payment
+    @payment_info.order_id = self.id
+    @payment_info.save!
+    Rails.logger.debug("payment order id is: #{@payment_info.order_id.inspect}") 
+  end
 end
