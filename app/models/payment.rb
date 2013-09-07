@@ -17,10 +17,10 @@ class Payment < ActiveRecord::Base
         Rails.logger.debug("customer object has: #{customer.inspect}")
         self.user.stripe_card_token = customer.id
       
-        self.card_last4  = customer.card.last4
-        self.card_type = customer.card.type
-        self.card_exp_month = customer.card.exp_month
-        self.card_exp_year = customer.card.exp_year
+      self.card_last4  = customer.cards.data.last4
+      self.card_type = customer.cards.data.type
+      self.card_exp_month = customer.cards.data.exp_month
+      self.card_exp_year = customer.cards.data.exp_year
       
         self.user.save
      end
