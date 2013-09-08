@@ -30,8 +30,6 @@ class CartsController < ApplicationController
   def destroy
     @cart.destroy
     session[:card_id] = nil
-   
-    Rails.logger.debug(" session id set to nil is : #{a}")
     redirect_to products_path, notice: 'Redirected to products after emptying cart'
   end
   

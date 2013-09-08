@@ -11,7 +11,9 @@ class Order < ActiveRecord::Base
   after_save  :update_payment
   
   def total
-    order_items.map(&:subtotal).sum
+    @b = order_items.map(&:subtotal).sum
+    @c = (@b*100).to_i
+    Rails.logger.debug("total method in Order model has total of : #{@c.inspect}")
   end
   
   #ability to add lineitems ie items in the cart to order
@@ -24,6 +26,7 @@ class Order < ActiveRecord::Base
       #item.cart_id = nil  
       Rails.logger.debug("item is: #{item.inspect}")
       order_items << item
+      total
     end
   end
   
@@ -44,6 +47,9 @@ class Order < ActiveRecord::Base
   def update_payment
     @payment_info.order_id = self.id
     @payment_info.save!
+    d  = @c
+    @payment_info.charge_customer(d)
     Rails.logger.debug("payment order id is: #{@payment_info.order_id.inspect}") 
+    Rails.logger.debug("update_payment method in Order model has total of : #{@c.inspect}")
   end
 end

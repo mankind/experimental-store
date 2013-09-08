@@ -40,7 +40,7 @@ class Payment < ActiveRecord::Base
      
      self.save!
     
-    #end  closes the valid line
+      #end  closes the valid line
     
     rescue Stripe::InvalidRequestError => e
       logger.error "Stripe error while creating customer: #{e.message}"
@@ -49,19 +49,16 @@ class Payment < ActiveRecord::Base
   
   end
 
-=begin
-
-  def charge_customer
+  def charge_customer(amount)
+    a = amount
     charge = Stripe::Charge.create(
-      amount: (self.order.total_price*100).to_i,
+      #amount: (self.order.total*100).to_i,
+      amount: a,
       currency: "usd",
       customer: self.user.stripe_card_token,
       description: "Charges for your order"
     )
   end
-
-
-=end
-  
+  handle_asynchronously :charge_customer
 
 end

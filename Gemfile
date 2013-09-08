@@ -9,6 +9,10 @@ gem 'sqlite3'
 #gem 'devise', github: 'plataformatec/devise', branch: 'rails4'
 gem "devise", "~> 3.0.1"
 gem 'stripe'
+
+#gem 'daemons'
+gem 'delayed_job_active_record'
+
 #gem 'carrierwave'
 #gem  'cancan'
 #gem 'mongoid', github: 'mongoid/mongoid'
