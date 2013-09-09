@@ -9,6 +9,19 @@ class ApplicationController < ActionController::Base
   #rather than after_filter :store_location and make sure to place it ahead of before_filter :authenticate_user!
 
   after_filter :store_location
+  
+  rescue_from  CanCan::AccessDenied do |exception|
+     flash[:error] = "Access denied"
+    redirect_to products_url
+  end
+  
+  #temprary work-around for cancan gem to work with rails-4
+  #https://github.com/ryanb/cancan/issues/835#issuecomment-18663815
+  before_filter do
+    resource = controller_path.singularize.gsub('/', '_').to_sym
+    method = "#{resource}_params"
+    params[resource] &&= send(method) if respond_to?(method, true)
+  end
 
   #store last url - this is needed for post-login redirect to whatever the user last visited.
   def store_location
@@ -29,6 +42,11 @@ class ApplicationController < ActionController::Base
     session[:previous_url] || super
   end
 
+  # Notice it is important to cache the ability object so it is not
+    # recreated every time.
+    #def current_ability
+     # @current_ability ||= Ability.new(current_user)
+   # end
   
   private
   

@@ -15,7 +15,7 @@ gem 'delayed_job_active_record'
 
 gem "rmagick"
 gem 'carrierwave'
-#gem  'cancan'
+gem  'cancan'
 #gem 'mongoid', github: 'mongoid/mongoid'
 #gem 'geocoder'
 #gem 'state_machine'

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_filter :authenticate_user!, except: [:new, :create]
+  load_and_authorize_resource 
  
   respond_to :html, :json
   
@@ -14,12 +15,12 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
     respond_with @user
   end
   
   def new
-    @user = User.new
+    #@user = User.new
   end
   
   #load_current_cart is called to transfer cart from guest to signed_in user
