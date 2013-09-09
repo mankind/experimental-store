@@ -1,7 +1,7 @@
 
 <div class="form-horizontal">
   
-<%=  form_for @product do |f| %>
+<%=  form_for @product, :html => {:multipart => true}  do |f| %>
 
 <fieldset>
   <legend><h1> Add a product </h1></legend>
@@ -32,7 +32,21 @@
    <div class="col-lg-8">
      <div class="form-group"> 
       <label class="control-label"> <%= f.label :image_url %> </label>
-      <div class="form-control"><%= f.text_field :image_url,  :placeholder => "Add image" %></div>
+      <div class="form-control"><%= f.file_field :image_url,  :placeholder => "Add image" %></div>
+       
+     <!-- Note :image_url is database field, so we append carrierwave's :remote_ before it and _url after it -->
+       <label class="control-label"> <%= f.label :remote_image_url_url, 'or url to upload an image' %> </label>
+      <div class="form-control"><%= f.text_field :remote_image_url_url,  :placeholder => "url for image upload" %></div>
+       
+         <!-- ensures uploads work across form redisplays  -->
+         <%= f.hidden_field :image_url_cache %>
+       
+        <p>
+           <label>
+           <%= f.check_box :remove_image_url %>
+            Remove uploaded image
+         </label>
+        </p>
      </div>  
    </div>
    

@@ -51,7 +51,9 @@ class ProductsController < ApplicationController
     #@product = Product.find_by(id: params[:id])
   end
   
+  # note that :remote_image_url_url refers to us appending :remote_ before :image_url db field
+  #and adding _url after :image_url db field to allow for carrierwave's remote upload
   def product_params
-    params.require(:product).permit(:title, :price, :stock, :description, :image_url)
+    params.require(:product).permit(:title, :price, :stock, :description, :image_url, :remote_image_url_url)
   end
 end

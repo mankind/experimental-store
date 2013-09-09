@@ -6,7 +6,8 @@
   
   <p> <%= @product.description %> </p>
 
-  <p> <%= @product.image_url %> </p>  
+  <!-- :image_url is database column -->
+  <p> <%= image_tag @product.image_url.url(:thumb) %> </p>  
   
   <% if user_signed_in? %>
      <%= link_to 'edit', edit_product_path(@product), class: "btn btn-primary"  %>

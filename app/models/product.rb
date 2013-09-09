@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  mount_uploader :image_url, ImageUrlUploader 
+  
   has_many :order_items
   
   #validates :user_id, :inclusion => { :in => [true, false] }

@@ -25,10 +25,11 @@ body {
 
 /*this are not bootstrap but custom classes */
 .fixedheight { height: 200px; width: 243px;  position:relative; border:1px solid; margin:7px;}
-.bottomaligned {position:absolute; bottom:0;  margin-bottom:7px;  left: 0;}
+.bottomleft {position:absolute; bottom:0;  margin-bottom:7px;  left: 0;}
 .bottomright {position:absolute; bottom:0;  margin-bottom:7px; margin:7px; right: 0;}
-.bottomleft {position:absolute; bottom:0;  margin-bottom:7px;  left: 100px;}
+.bottomcentre {position:absolute; bottom:0;  margin-bottom:7px;  left: 100px;}
 
+.image { margin-top:5px;}
 
 
 

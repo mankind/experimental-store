@@ -39,6 +39,10 @@ GEM
     atomic (1.1.12)
     bcrypt-ruby (3.1.1)
     builder (3.1.4)
+    carrierwave (0.9.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -94,6 +98,7 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rmagick (2.13.2)
     sass (3.2.10)
     sass-rails (4.0.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -137,11 +142,13 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   bootstrap-sass!
+  carrierwave
   coffee-rails (~> 4.0.0)
   delayed_job_active_record
   devise (~> 3.0.1)
   jquery-rails
   rails (= 4.0.0)
+  rmagick
   sass-rails (~> 4.0.0)
   sdoc
   sqlite3
