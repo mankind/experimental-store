@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, except: [:index, :show]
+  load_and_authorize_resource only: [:create, :edit, :destroy]
   respond_to :html, :json
   
   def index
@@ -12,14 +13,20 @@ class ProductsController < ApplicationController
   end
   
   def new
-    @product = Product.new    
+    @product = Product.new
+    @product.user = current_user   
   end
   
   def edit
   end
   
   def create 
-    @product = Product.new(product_params)
+    @user = User.find_by(id: current_user.id)
+    Rails.logger.debug("My object: #{@user.inspect}")
+    @product = @user.products.build(product_params)
+    
+    #old working code used when we didn't association to user
+    #@product = Product.new(product_params)
     if @product.save
       redirect_to products_path, {notice: 'Product was successfully created.' }
       
@@ -54,6 +61,6 @@ class ProductsController < ApplicationController
   # note that :remote_image_url_url refers to us appending :remote_ before :image_url db field
   #and adding _url after :image_url db field to allow for carrierwave's remote upload
   def product_params
-    params.require(:product).permit(:title, :price, :stock, :description, :image_url, :remote_image_url_url)
+    params.require(:product).permit(:title, :price, :stock, :description, :image_url, :user_id,  :remote_image_url_url)
   end
 end

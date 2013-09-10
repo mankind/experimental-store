@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_filter :authenticate_user!, except: [:new, :create]
-  load_and_authorize_resource 
+  load_and_authorize_resource only: [:index, :edit, :destroy]
  
   respond_to :html, :json
   
@@ -16,11 +16,11 @@ class UsersController < ApplicationController
   
   def edit
     #@user = User.find(params[:id])
-    respond_with @user
+    #respond_with @user
   end
   
   def new
-    #@user = User.new
+    @user = User.new
   end
   
   #load_current_cart is called to transfer cart from guest to signed_in user
@@ -44,6 +44,11 @@ class UsersController < ApplicationController
       params[:user].delete("password_confirmation")
     end
     if @user.update(user_params)
+      
+      #After updating user, we reset Current_User and CanCan's Current Ability
+       @current_ability = nil
+       @current_user = nil
+      
       # Sign in the user by passing validation in case his password changed
       sign_in :user, @user, :bypass => true 
       redirect_to @user, {notice: 'Your user details were updated'}
@@ -54,7 +59,6 @@ class UsersController < ApplicationController
   
   def destroy
     @user.destroy
-  
     redirect_to users_path, {notice: 'A user was removed'}
   end
   

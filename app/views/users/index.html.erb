@@ -3,14 +3,21 @@
  
  <% @users.each do |user| %>
     <div class="col-lg-3 col-sm-4 col-6">
-       <div><%= user.email %></div>
-      <!-- <% if user_signed_in? %> -->
-          <% if can? :update, @user %>
+        <div><%= user.email %></div>
+       
+       <% if user_signed_in? %> 
+               
+          <% if can? :update, user %>
            <div class=" btn "><%= link_to "Edit", edit_user_path(user) %> </div>
-           <div><%= link_to "Sign Out", destroy_user_session_path, method: :delete  %> </div>
-           <div class="btn btn-danger"><%= link_to 'Remove', user, method: :delete, data: {confirmation: 'Are you sure'} %></div>
           <% end %>
-      <!-- <% end %> -->
+          
+         <% if can? :destroy, user %>
+           <div class="btn btn-danger"><%= link_to 'Remove', user, method: :delete, data: {confirmation: 'Are you sure'} %></div>
+           <% end %>
+      
+          <div><%= link_to "Sign Out", destroy_user_session_path, method: :delete  %> </div>
+      
+      <% end %>  <!-- closes user_signed_in? -->
     </div>
   <% end %>
   

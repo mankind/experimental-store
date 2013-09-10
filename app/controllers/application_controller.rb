@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
- 
+  
   #https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
   #if you happen to have before_filter :authenticate_user! in your ApplicationController you will need to use before_filter :store_location
   #rather than after_filter :store_location and make sure to place it ahead of before_filter :authenticate_user!
@@ -11,8 +11,9 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
   
   rescue_from  CanCan::AccessDenied do |exception|
-     flash[:error] = "Access denied"
-    redirect_to products_url
+    
+
+    redirect_to products_url, flash: {error: "Access denied"}
   end
   
   #temprary work-around for cancan gem to work with rails-4
@@ -41,12 +42,6 @@ class ApplicationController < ActionController::Base
     #session[:previous_url] || root_path
     session[:previous_url] || super
   end
-
-  # Notice it is important to cache the ability object so it is not
-    # recreated every time.
-    #def current_ability
-     # @current_ability ||= Ability.new(current_user)
-   # end
   
   private
   
