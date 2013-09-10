@@ -39,11 +39,11 @@
 </div><!-- /.row -->
 
 <br/>
-  <% if user_signed_in? %> 
+   <% if user_signed_in? %> 
     <% if can? :create, Product %>
        <%= link_to 'Create a new Product', new_product_path %>
     <% end %>
-  <% end %>
+  <% end %>  
 <br/>
 <%# this is  a comment, note the # sign indicating comment %>
 <%#= link_to 'home page', home_path %>

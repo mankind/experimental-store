@@ -20,7 +20,7 @@ class Ability
       #both versions are working
        product.try(:user_id) == user.id   &&
        #product.user == user
-       product.try(:user).seller == true 
+       product.try(:user).try(:seller) == true 
       
     end
        
