@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, except: [:index, :show]
-  load_and_authorize_resource only: [:create, :edit, :destroy]
+  load_and_authorize_resource only: [ :create, :edit, :destroy]
   respond_to :html, :json
   
   def index
@@ -13,8 +13,7 @@ class ProductsController < ApplicationController
   end
   
   def new
-    @product = Product.new
-    @product.user = current_user   
+    @product = Product.new   
   end
   
   def edit
@@ -22,7 +21,7 @@ class ProductsController < ApplicationController
   
   def create 
     @user = User.find_by(id: current_user.id)
-    Rails.logger.debug("My object: #{@user.inspect}")
+   
     @product = @user.products.build(product_params)
     
     #old working code used when we didn't association to user
