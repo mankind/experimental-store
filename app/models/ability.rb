@@ -21,8 +21,7 @@ class Ability
        product.try(:user_id) == user.id   &&
        #product.user == user
        product.try(:user).try(:seller) == true 
-      
     end
-       
+   
   end
 end
