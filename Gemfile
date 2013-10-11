@@ -40,7 +40,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 #gem 'bootstrap-sass', :git => 'git://github.com/thomas-mcdonald/bootstrap-sass.git', :branch => '3'
-gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass', branch: '3'
+#gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass', branch: '3'
+gem 'bootstrap-sass'
 gem "active_model_serializers"
 
 
