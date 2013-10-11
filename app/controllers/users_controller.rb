@@ -15,8 +15,6 @@ class UsersController < ApplicationController
   end
   
   def edit
-    #@user = User.find(params[:id])
-    #respond_with @user
   end
   
   def new
@@ -28,9 +26,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      sign_in :user, @user #immediately signs in newly registerd user
+      
+      #immediately signs in newly registerd user
+      sign_in :user, @user 
       load_current_cart if session[:guest_user_id] != nil
-      #current_user.move_guest_cart_to_user(@user) #if current_user && current_user.guest?
+      
       redirect_to @user, {notice: 'User was created'}
     else
       render 'new'

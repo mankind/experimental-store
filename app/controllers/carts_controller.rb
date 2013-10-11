@@ -2,7 +2,7 @@ class CartsController < ApplicationController
   before_action :set_cart, only: [:edit, :show, :update, :destroy]
   
   #http://api.rubyonrails.org/classes/ActiveSupport/Rescuable/ClassMethods.html
-  #rescue_from Rescue exceptions raised in controller actions.
+  #rescue_from will rescue exceptions raised in controller actions.
   #rescue_from works by receiving a series of exception classes or class names,
   #and a trailing :with option with the name of a method or a Proc object to be called to handle them
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart

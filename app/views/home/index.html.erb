@@ -1,7 +1,7 @@
 <h1>Home#index</h1>
 
 <% if user_signed_in? %>
-  <p> I came from a controller instance variable <%= @time %> </p>
+  <p>  <%= @time %> </p>
 
   <li>
   <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        

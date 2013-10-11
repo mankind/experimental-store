@@ -1,7 +1,9 @@
 class Address < ActiveRecord::Base
   validates :line1, :city, :state, :zip,  presence: true
+  
     #state must be a two-letter uppercase abbreviation.
   validates :state, format: {with: /[A-Z]{2}/}
+  
     # zipcode should be exactly 5 characters that are only digits
   validates :zip, format: {with:  /\d{5}/}
   

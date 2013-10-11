@@ -8,24 +8,6 @@
     <% end %>
   
 <fieldset>
-<!--  
-  <div class="col-lg-8">
-    <div class="form-group">
-      <label class="control-label"><%= f.label :user_id %></label>
-      <div class="form-control"><%= f.number_field :user_id %></div>
-    </div>
-  </div>
-  
-  <div class="col-lg-8">
-    <div class="form-group">
-      <label class="control-label"> <%= f.label :status %></label>
-      <div class="form-control"<%= f.text_field :status %></div>
-    </div>
-  </div>
--->
-
-  <%= debug @order %>
-  <%= debug current_user.addresses %>
   <div class="col-lg-8">
     <div class="form-group">
        <label for="address">Add an address</label>
@@ -39,6 +21,7 @@
        <% if @order.user.stripe_card_token.present? %>
           Credit card has been provided. We will charge the card we have by the order total
         <% else %>
+      
           <!--  <%= render 'stripe_checkout_form' %> -->
            <%= render 'stripejs_form' %>    
        <% end %>

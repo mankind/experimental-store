@@ -3,43 +3,14 @@ class OrderItemsController < ApplicationController
   before_action :set_order_item, only: [:show, :edit, :destroy]
   respond_to :html, :json
 
-  
-  #we don't need the :index, :show and :new actions, so to be removed
-
-  def index
-    @order_items = OrderItem.all
-    respond_with @order_items
-  end
-  
   def show
   end
-  
-  #def new
-   # @order_item = OrderItem.new
-  #end
 
   def edit
-    
   end
   
-   
-# since the form that gets created by the 'Add to cart' in products/index uses a button_to helper, 
-# and button_helper doesn’t nest data in an order_item hash, it simply submits to the URL provided.
-# we will need to change this @order_item = OrderItem.new(order_item_params)
-#also, we build the order_item through the relationship with the order 
-# with find_or_initialize, we want to look first look for order_item with the matching product_id first
-# += increases the product quantity by 1 if in the order & If it’s not in the order, add it to the order with quantity 1
-  # for  += to work as described above, the default value for quantity must be set to zero in the database
   
-  def create
-    #@order_item = OrderItem.new(product_id: params[:product_id], cart_id: @cart_id)
-    #@order_item = @cart.order_items.new(product_id: params[:product_id], quantity: 1)
-    
-    #product = Product.find(params[:product_id])
-    #@order_item = @cart.order_items.find_or_initialize_by(product_id: product.id)
-    Rails.logger.debug("My object: #{@cart.inspect}")
-    Rails.logger.debug("My object: #{@cart.user_id.inspect}")
-    Rails.logger.debug("The Product id is : #{params[:product_id].inspect}")    
+  def create    
     @order_item = @cart.order_items.find_or_initialize_by(product_id: params[:product_id])
     @order_item.quantity += 1
     Rails.logger.debug("The order_item contains : #{@order_item.inspect}")    
@@ -66,9 +37,7 @@ class OrderItemsController < ApplicationController
   
   def destroy
     @order_item.destroy
-    #redirect_to products_path
     redirect_to @order_item.cart
-    #redirect_to cart_path
   end
   
   private
@@ -81,18 +50,4 @@ class OrderItemsController < ApplicationController
     params.require(:order_item).permit(:order_id, :product_id, :quantity)
   end
   
-  
-=begin
-  # tries to find the Order with the :order_id in the session
-  # raise an ActiveRecord::RecordNotFound error If the session hash does not have a key named :order_id
-  #The rescue statement watches for this error and, if it occurs, creates a new Order
-  def load_order
-    begin
-      @order = Order.find(session[:order_id])
-    rescue ActiveRecord::RecordNotFound
-      @order = Order.create(status: 'unsubmitted')
-      session([:order_id]) = @order.id 
-  end
-  
-=end
 end

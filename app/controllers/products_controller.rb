@@ -24,13 +24,10 @@ class ProductsController < ApplicationController
    
     @product = @user.products.build(product_params)
     
-    #old working code used when we didn't association to user
-    #@product = Product.new(product_params)
     if @product.save
       redirect_to products_path, {notice: 'Product was successfully created.' }
       
     else
-      #render 'new'
       render action: 'new'
       
     end
@@ -39,7 +36,6 @@ class ProductsController < ApplicationController
   def update
     if @product.update(product_params)
       redirect_to @product, {notice: 'Product was successfully updated.'} 
-      #redirect_to product_path, notice: 'Product was successfully updated.' 
     else
       render action: 'edit'
     end
@@ -54,7 +50,6 @@ class ProductsController < ApplicationController
   
   def set_product
     @product = Product.find(params[:id])
-    #@product = Product.find_by(id: params[:id])
   end
   
   # note that :remote_image_url_url refers to us appending :remote_ before :image_url db field

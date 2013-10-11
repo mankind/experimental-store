@@ -7,6 +7,7 @@ class UsersSessionsController < Devise::SessionsController
      super
       if signed_in?(resource) 
        Rails.logger.debug("My object: #{resource.inspect}")
+        
        #call the code to assign guest cart
         load_current_cart
       end
