@@ -8,7 +8,7 @@ class AddressesController < ApplicationController
   def create
     @address = Address.new(address_params)
       if address.save
-        redirect_to order_path(session[:order_id]), notice: 'Address was successfully created.'
+        redirect_to new_order_path(session[:order_id]), notice: 'Address was successfully created.'
       else
          render action: 'new'
       end        
@@ -36,6 +36,6 @@ class AddressesController < ApplicationController
   end
   
   def address_params
-    params(:address).permit(:line1, :line2, :city, :state, :zip)
+    params(:address).permit(:line1, :line2, :city, :state, :zip, :user_id)
   end
 end

@@ -12,7 +12,9 @@ class Payment < ActiveRecord::Base
       customer = Stripe::Customer.create(email: user_email, card: params[:token])
       
       card = customer.cards.data
-      self.last4 = card[0].last4
+      self.card_last4 = card[0].last4
+      
+      self.user.stripe_card_token = customer.id
       self.user.save
      end
      
